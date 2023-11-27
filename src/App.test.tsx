@@ -90,25 +90,40 @@ test('Integration: Clicking a key on the onscreen keyboard', () => {
   }
 })
 
-test('Integration: Clicking all 5 keys on the onscreen keyboard', () => {
+test('Integration: Clicking all 5 keys on the onscreen keyboard and submitting', () => {
   const { getByText, getByLabelText, getByTestId, container } = render(<App />)
   const GridDiv = container.querySelector('div')
-  const it1 = screen.getAllByText('Z')
-  const it2 = screen.getAllByText('X')
-  const it3 = screen.getAllByText('C')
-  const it4 = screen.getAllByText('V')
-  const it5 = screen.getAllByText('S')
-  Simulate.click(getByText('Z'))
-  Simulate.click(getByText('X'))
-  Simulate.click(getByText('C'))
-  Simulate.click(getByText('V'))
+  // console.log(container)
+  const lst = container.children
+  for (let i = 0; i < lst.length; i++) {
+    // console.log(lst[i].className)
+  }
+
+  // console.log(screen.getAllByRole('cell').length)
+
+  const it1 = screen.getAllByText('S')
+  const it2 = screen.getAllByText('H')
+  const it3 = screen.getAllByText('A')
+  const it4 = screen.getAllByText('R')
+  const it5 = screen.getAllByText('D')
   Simulate.click(getByText('S'))
-  const t1 = screen.getAllByText('Z')
-  const t2 = screen.getAllByText('X')
-  const t3 = screen.getAllByText('C')
-  const t4 = screen.getAllByText('V')
-  const t5 = screen.getAllByText('S')
+  Simulate.click(getByText('H'))
+  Simulate.click(getByText('A'))
+  Simulate.click(getByText('R'))
+  Simulate.click(getByText('D'))
+  const t1 = screen.getAllByText('S')
+  const t2 = screen.getAllByText('H')
+  const t3 = screen.getAllByText('A')
+  const t4 = screen.getAllByText('R')
+  const t5 = screen.getAllByText('D')
+  let f1
+  let f2
+  let f3
+  let f4
+  let f5
+  // console.log(t1[0])
   for (let i = 0; i < t1.length; i++) {
+    // console.log(t1[i])
     expect(t1[i]).toBeInTheDocument()
   }
   for (let i = 0; i < t2.length; i++) {
@@ -128,11 +143,21 @@ test('Integration: Clicking all 5 keys on the onscreen keyboard', () => {
   expect(t3.length - it3.length).toBe(1)
   expect(t4.length - it4.length).toBe(1)
   expect(t5.length - it5.length).toBe(1)
+
+  Simulate.click(getByText('Enter'))
+
+  const cells = screen.getAllByRole('cell')
+  expect(cells[0]).toHaveClass('present')
+  expect(cells[1]).toHaveClass('absent')
+  expect(cells[2]).toHaveClass('present')
+  expect(cells[3]).toHaveClass('absent')
+  expect(cells[4]).toHaveClass('absent')
 })
 
 test('Integration: Clicking all 5 keys on the onscreen keyboard and validating response', () => {
   const { getByText, getByLabelText, getByTestId, container } = render(<App />)
-  // console.log(container.querySelector(''))
+  // console.log(container)
+  console.log(container.querySelectorAll(':scope').length)
 })
 
 test('CIM: grid renders all inputted letters correctly ', () => {
