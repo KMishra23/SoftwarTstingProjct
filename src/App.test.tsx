@@ -59,7 +59,7 @@ beforeEach(() => {
   })
 })
 
-test('grid renders all inputted letters correctly ', () => {
+test('CIM: grid renders all inputted letters correctly ', () => {
   const { container } = render(<Grid {...fullGridProps} />)
   const completedRow = container.querySelector('CompletedRow')
   const text1 = screen.getAllByText('S')
@@ -78,24 +78,24 @@ test('grid renders all inputted letters correctly ', () => {
   // expect(text5).toBeInTheDocument()
 })
 
-test('registers existing inputs appropriately and generates letters on screen', () => {
+test('CIM: registers existing inputs appropriately and generates letters on screen', () => {
   const { container } = render(<Grid {...fullGridProps} currentGuess="Z" />)
   const completedRow = container.querySelector('CompletedRow')
   const text = screen.getByText('Z')
   expect(text).toBeInTheDocument()
 })
 
-test('renders App component', () => {
+test('CIM: renders App component', () => {
   render(<App />)
   const linkElement = screen.getByText(GAME_TITLE)
   expect(linkElement).toBeInTheDocument()
 })
 
-test('renders Cell component without crashing', () => {
+test('CIM: renders Cell component without crashing', () => {
   render(<Cell {...cellProps} />)
 })
 
-test('renders Cell component correctly with default attributes', () => {
+test('CIM: renders Cell component correctly with default attributes', () => {
   const { container } = render(<Cell {...cellProps} />)
 
   const text = screen.getByText('A')
@@ -106,7 +106,7 @@ test('renders Cell component correctly with default attributes', () => {
   expect(mainDiv).toHaveClass('present')
 })
 
-test('renders Cell component correctly with absent status', () => {
+test('CIM: renders Cell component correctly with absent status', () => {
   const { container } = render(<Cell {...cellFalseProps} />)
 
   //checks if div has attribute absent
@@ -114,7 +114,7 @@ test('renders Cell component correctly with absent status', () => {
   expect(mainDiv).toHaveClass('absent')
 })
 
-test('renders Cell component correctly with correct status', () => {
+test('CIM: renders Cell component correctly with correct status', () => {
   const { container } = render(<Cell {...cellProps} status="correct" />)
 
   const mainDiv = container.querySelector('div')
@@ -141,36 +141,36 @@ beforeEach(() => {
   }))
 })
 
-// describe('getGuessStatuses', () => {
-//   test('guess statuses', () => {
-//     expect(getGuessStatuses('ABCDE', 'EDCBA')).toEqual([
-//       'present',
-//       'present',
-//       'correct',
-//       'present',
-//       'present',
-//     ])
-//     expect(getGuessStatuses('ABCDE', 'VWXYZ')).toEqual([
-//       'absent',
-//       'absent',
-//       'absent',
-//       'absent',
-//       'absent',
-//     ])
-//     expect(getGuessStatuses('ABCDE', 'ABCDE')).toEqual([
-//       'correct',
-//       'correct',
-//       'correct',
-//       'correct',
-//       'correct',
-//     ])
+describe('getGuessStatuses', () => {
+  test('CIM: guess statuses', () => {
+    expect(getGuessStatuses('ABCDE', 'EDCBA')).toEqual([
+      'present',
+      'present',
+      'correct',
+      'present',
+      'present',
+    ])
+    expect(getGuessStatuses('ABCDE', 'VWXYZ')).toEqual([
+      'absent',
+      'absent',
+      'absent',
+      'absent',
+      'absent',
+    ])
+    expect(getGuessStatuses('ABCDE', 'ABCDE')).toEqual([
+      'correct',
+      'correct',
+      'correct',
+      'correct',
+      'correct',
+    ])
 
-//     expect(getGuessStatuses('BOSSY', 'SASSY')).toEqual([
-//       'absent',
-//       'absent',
-//       'correct',
-//       'correct',
-//       'correct',
-//     ])
-//   })
-// })
+    expect(getGuessStatuses('BOSSY', 'SASSY')).toEqual([
+      'absent',
+      'absent',
+      'correct',
+      'correct',
+      'correct',
+    ])
+  })
+})

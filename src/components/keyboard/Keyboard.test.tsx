@@ -22,7 +22,7 @@ describe('Keyboard component', () => {
     guesses: [],
   }
 
-  it('renders the Keyboard component correctly', () => {
+  it('CIM: renders the Keyboard component correctly', () => {
     const { container } = render(<Keyboard {...defaultProps} />)
     const text = screen.getByText('Q')
     expect(text).toBeInTheDocument()
@@ -31,7 +31,7 @@ describe('Keyboard component', () => {
     // Add more assertions as needed
   })
 
-  it('fires onClick event for a key', () => {
+  it('CIM: fires onClick event for a key', () => {
     const { getByText } = render(<Keyboard {...defaultProps} />)
     const keyElement = getByText('A') // Replace 'A' with any key you want to test
     fireEvent.click(keyElement)
@@ -39,7 +39,7 @@ describe('Keyboard component', () => {
     // Add assertions based on your component's behavior
   })
 
-  it('fires onDelete and onEnter events on keyboard events', () => {
+  it('CIM: fires onDelete and onEnter events on keyboard events', () => {
     const { container } = render(<Keyboard {...defaultProps} />)
     fireEvent.keyUp(container, { key: 'Enter', code: 'Enter' })
     expect(onEnterMock).toHaveBeenCalledTimes(1)
