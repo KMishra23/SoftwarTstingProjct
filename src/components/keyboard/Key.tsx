@@ -56,6 +56,7 @@ export const Key = ({
 
   return (
     <button
+      role="key"
       style={styles}
       aria-label={`${value}${status ? ' ' + status : ''}`}
       className={classes}

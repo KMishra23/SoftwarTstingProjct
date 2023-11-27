@@ -90,7 +90,7 @@ test('Integration: Clicking a key on the onscreen keyboard', () => {
   }
 })
 
-test('Integration: Clicking all 5 keys on the onscreen keyboard and submitting', () => {
+test('Integration: Clicking all 5 keys on the onscreen keyboard and submitting with partial response', () => {
   const { getByText, getByLabelText, getByTestId, container } = render(<App />)
   const GridDiv = container.querySelector('div')
   // console.log(container)
@@ -116,11 +116,6 @@ test('Integration: Clicking all 5 keys on the onscreen keyboard and submitting',
   const t3 = screen.getAllByText('A')
   const t4 = screen.getAllByText('R')
   const t5 = screen.getAllByText('D')
-  let f1
-  let f2
-  let f3
-  let f4
-  let f5
   // console.log(t1[0])
   for (let i = 0; i < t1.length; i++) {
     // console.log(t1[i])
@@ -154,10 +149,65 @@ test('Integration: Clicking all 5 keys on the onscreen keyboard and submitting',
   expect(cells[4]).toHaveClass('absent')
 })
 
-test('Integration: Clicking all 5 keys on the onscreen keyboard and validating response', () => {
+test('Integration: Clicking all 5 keys on the onscreen keyboard with valid response', () => {
   const { getByText, getByLabelText, getByTestId, container } = render(<App />)
+  const GridDiv = container.querySelector('div')
   // console.log(container)
-  console.log(container.querySelectorAll(':scope').length)
+  const lst = container.children
+  for (let i = 0; i < lst.length; i++) {
+    // console.log(lst[i].className)
+  }
+
+  // console.log(screen.getAllByRole('cell').length)
+
+  console.log(screen.getByRole('key', { name: /Z/i }))
+
+  // const it1 = screen.getAllByText('P')
+  // const it2 = screen.getAllByRole('key', { name: 'A' })
+  // const it3 = screen.getAllByText('U')
+  // const it4 = screen.getAllByText('S')
+  // const it5 = screen.getAllByText('E')
+  // Simulate.click(getByText('P'))
+  // Simulate.click(getByText('A'))
+  // Simulate.click(getByText('U'))
+  // Simulate.click(getByText('S'))
+  // Simulate.click(getByText('E'))
+  // const t1 = screen.getAllByText('P')
+  // const t2 = screen.getAllByRole('key', { name: 'A' })
+  // const t3 = screen.getAllByText('U')
+  // const t4 = screen.getAllByText('S')
+  // const t5 = screen.getAllByText('E')
+  // // console.log(t1[0])
+  // for (let i = 0; i < t1.length; i++) {
+  //   // console.log(t1[i])
+  //   expect(t1[i]).toBeInTheDocument()
+  // }
+  // for (let i = 0; i < t2.length; i++) {
+  //   expect(t2[i]).toBeInTheDocument()
+  // }
+  // for (let i = 0; i < t3.length; i++) {
+  //   expect(t3[i]).toBeInTheDocument()
+  // }
+  // for (let i = 0; i < t4.length; i++) {
+  //   expect(t4[i]).toBeInTheDocument()
+  // }
+  // for (let i = 0; i < t5.length; i++) {
+  //   expect(t5[i]).toBeInTheDocument()
+  // }
+  // expect(t1.length - it1.length).toBe(1)
+  // expect(t2.length - it2.length).toBe(1)
+  // expect(t3.length - it3.length).toBe(1)
+  // expect(t4.length - it4.length).toBe(1)
+  // expect(t5.length - it5.length).toBe(1)
+
+  // Simulate.click(getByText('Enter'))
+
+  // const cells = screen.getAllByRole('cell')
+  // expect(cells[0]).toHaveClass('present')
+  // expect(cells[1]).toHaveClass('present')
+  // expect(cells[2]).toHaveClass('present')
+  // expect(cells[3]).toHaveClass('present')
+  // expect(cells[4]).toHaveClass('present')
 })
 
 test('CIM: grid renders all inputted letters correctly ', () => {
