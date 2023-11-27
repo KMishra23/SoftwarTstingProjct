@@ -5,8 +5,10 @@ import {
   render,
   screen,
 } from '@testing-library/react'
+import { sub } from 'date-fns'
 import { te } from 'date-fns/locale'
 import React from 'react'
+import { Simulate } from 'react-dom/test-utils'
 
 import App from './App'
 import { Cell, CellProps } from './components/grid/Cell'
@@ -66,12 +68,16 @@ beforeEach(() => {
 
 test('Integration: Clicking a key on the keyboard', async () => {
   const { getByText, getByLabelText, getByTestId, container } = render(<App />)
-  const GridDiv = container.querySelector('Grid')
+  const GridDiv = container.querySelector('div')
+  Simulate.click(getByText('Z'))
+  const t = screen.getAllByText('Z')
+  console.log(GridDiv)
+  // const subclasses = GridDiv.querySelector('*')
 })
 
 test('CIM: grid renders all inputted letters correctly ', () => {
   const { container } = render(<Grid {...fullGridProps} />)
-  const completedRow = container.querySelector('CompletedRow')
+  // const completedRow = container.querySelector('CompletedRow')
   const text1 = screen.getAllByText('S')
   const text2 = screen.getAllByText('X')
   const text3 = screen.getAllByText('C')
@@ -88,8 +94,8 @@ test('CIM: grid renders all inputted letters correctly ', () => {
   for (let i = 0; i < text3.length; i++) {
     expect(text3[i]).toBeInTheDocument()
   }
-  for (let i = 0; i < text3.length; i++) {
-    expect(text3[i]).toBeInTheDocument()
+  for (let i = 0; i < text4.length; i++) {
+    expect(text4[i]).toBeInTheDocument()
   }
   // expect(text2).toBeInTheDocument()
   // expect(text3).toBeInTheDocument()
