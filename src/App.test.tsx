@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom/extend-expect'
+import '@testing-library/jest-dom'
 import { cleanup, render, screen } from '@testing-library/react'
 import { te } from 'date-fns/locale'
 import React from 'react'
