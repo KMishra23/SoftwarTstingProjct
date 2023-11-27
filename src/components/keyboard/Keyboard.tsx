@@ -5,7 +5,7 @@ import { getStatuses } from '../../lib/statuses'
 import { localeAwareUpperCase } from '../../lib/words'
 import { Key } from './Key'
 
-type Props = {
+export type KeyboardProps = {
   onChar: (value: string) => void
   onDelete: () => void
   onEnter: () => void
@@ -21,7 +21,7 @@ export const Keyboard = ({
   solution,
   guesses,
   isRevealing,
-}: Props) => {
+}: KeyboardProps) => {
   const charStatuses = getStatuses(solution, guesses)
 
   const onClick = (value: string) => {

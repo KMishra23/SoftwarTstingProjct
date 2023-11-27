@@ -13,10 +13,23 @@ import { Simulate } from 'react-dom/test-utils'
 import App from './App'
 import { Cell, CellProps } from './components/grid/Cell'
 import { Grid, GridProps } from './components/grid/Grid'
+import { Keyboard } from './components/keyboard/Keyboard'
 import { GAME_TITLE } from './constants/strings'
 import { getGuessStatuses } from './lib/statuses'
 
 afterEach(cleanup)
+
+const onCharMock = jest.fn()
+const onDeleteMock = jest.fn()
+const onEnterMock = jest.fn()
+
+const keyboardProps = {
+  onChar: onCharMock,
+  onDelete: onDeleteMock,
+  onEnter: onEnterMock,
+  solution: 'ABCDE',
+  guesses: [],
+}
 
 const emptyGridProps: GridProps = {
   solution: 'ABCDE',
@@ -66,13 +79,60 @@ beforeEach(() => {
   })
 })
 
-test('Integration: Clicking a key on the keyboard', async () => {
+test('Integration: Clicking a key on the onscreen keyboard', () => {
   const { getByText, getByLabelText, getByTestId, container } = render(<App />)
+  // console.log(container)
   const GridDiv = container.querySelector('div')
   Simulate.click(getByText('Z'))
   const t = screen.getAllByText('Z')
-  console.log(GridDiv)
-  // const subclasses = GridDiv.querySelector('*')
+  for (let i = 0; i < t.length; i++) {
+    expect(t[i]).toBeInTheDocument()
+  }
+})
+
+test('Integration: Clicking all 5 keys on the onscreen keyboard', () => {
+  const { getByText, getByLabelText, getByTestId, container } = render(<App />)
+  const GridDiv = container.querySelector('div')
+  const it1 = screen.getAllByText('Z')
+  const it2 = screen.getAllByText('X')
+  const it3 = screen.getAllByText('C')
+  const it4 = screen.getAllByText('V')
+  const it5 = screen.getAllByText('S')
+  Simulate.click(getByText('Z'))
+  Simulate.click(getByText('X'))
+  Simulate.click(getByText('C'))
+  Simulate.click(getByText('V'))
+  Simulate.click(getByText('S'))
+  const t1 = screen.getAllByText('Z')
+  const t2 = screen.getAllByText('X')
+  const t3 = screen.getAllByText('C')
+  const t4 = screen.getAllByText('V')
+  const t5 = screen.getAllByText('S')
+  for (let i = 0; i < t1.length; i++) {
+    expect(t1[i]).toBeInTheDocument()
+  }
+  for (let i = 0; i < t2.length; i++) {
+    expect(t2[i]).toBeInTheDocument()
+  }
+  for (let i = 0; i < t3.length; i++) {
+    expect(t3[i]).toBeInTheDocument()
+  }
+  for (let i = 0; i < t4.length; i++) {
+    expect(t4[i]).toBeInTheDocument()
+  }
+  for (let i = 0; i < t5.length; i++) {
+    expect(t5[i]).toBeInTheDocument()
+  }
+  expect(t1.length - it1.length).toBe(1)
+  expect(t2.length - it2.length).toBe(1)
+  expect(t3.length - it3.length).toBe(1)
+  expect(t4.length - it4.length).toBe(1)
+  expect(t5.length - it5.length).toBe(1)
+})
+
+test('Integration: Clicking all 5 keys on the onscreen keyboard and validating response', () => {
+  const { getByText, getByLabelText, getByTestId, container } = render(<App />)
+  // console.log(container.querySelector(''))
 })
 
 test('CIM: grid renders all inputted letters correctly ', () => {
@@ -97,10 +157,6 @@ test('CIM: grid renders all inputted letters correctly ', () => {
   for (let i = 0; i < text4.length; i++) {
     expect(text4[i]).toBeInTheDocument()
   }
-  // expect(text2).toBeInTheDocument()
-  // expect(text3).toBeInTheDocument()
-  // expect(text4).toBeInTheDocument()
-  // expect(text5).toBeInTheDocument()
 })
 
 test('CIM: registers existing inputs appropriately and generates letters on screen', () => {
@@ -110,11 +166,11 @@ test('CIM: registers existing inputs appropriately and generates letters on scre
   expect(text).toBeInTheDocument()
 })
 
-// test('Integration: renders App component', () => {
-//   render(<App />)
-//   const linkElement = screen.getByText(GAME_TITLE)
-//   expect(linkElement).toBeInTheDocument()
-// })
+test('Integration: renders App component', () => {
+  render(<App />)
+  const linkElement = screen.getByText(GAME_TITLE)
+  expect(linkElement).toBeInTheDocument()
+})
 
 test('CIM: renders Cell component without crashing', () => {
   render(<Cell {...cellProps} />)
