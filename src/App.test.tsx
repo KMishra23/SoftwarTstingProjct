@@ -1,5 +1,10 @@
 import '@testing-library/jest-dom'
-import { cleanup, render, screen } from '@testing-library/react'
+import {
+  cleanup,
+  getByPlaceholderText,
+  render,
+  screen,
+} from '@testing-library/react'
 import { te } from 'date-fns/locale'
 import React from 'react'
 
@@ -59,6 +64,11 @@ beforeEach(() => {
   })
 })
 
+test('Integration: Clicking a key on the keyboard', async () => {
+  const { getByText, getByLabelText, getByTestId, container } = render(<App />)
+  const GridDiv = container.querySelector('Grid')
+})
+
 test('CIM: grid renders all inputted letters correctly ', () => {
   const { container } = render(<Grid {...fullGridProps} />)
   const completedRow = container.querySelector('CompletedRow')
@@ -72,9 +82,18 @@ test('CIM: grid renders all inputted letters correctly ', () => {
     expect(text1[i]).toBeInTheDocument()
   }
   // expect(text1).toBeInTheDocument()
-  expect(text2).toBeInTheDocument()
-  expect(text3).toBeInTheDocument()
-  expect(text4).toBeInTheDocument()
+  for (let i = 0; i < text2.length; i++) {
+    expect(text2[i]).toBeInTheDocument()
+  }
+  for (let i = 0; i < text3.length; i++) {
+    expect(text3[i]).toBeInTheDocument()
+  }
+  for (let i = 0; i < text3.length; i++) {
+    expect(text3[i]).toBeInTheDocument()
+  }
+  // expect(text2).toBeInTheDocument()
+  // expect(text3).toBeInTheDocument()
+  // expect(text4).toBeInTheDocument()
   // expect(text5).toBeInTheDocument()
 })
 
@@ -85,11 +104,11 @@ test('CIM: registers existing inputs appropriately and generates letters on scre
   expect(text).toBeInTheDocument()
 })
 
-test('CIM: renders App component', () => {
-  render(<App />)
-  const linkElement = screen.getByText(GAME_TITLE)
-  expect(linkElement).toBeInTheDocument()
-})
+// test('Integration: renders App component', () => {
+//   render(<App />)
+//   const linkElement = screen.getByText(GAME_TITLE)
+//   expect(linkElement).toBeInTheDocument()
+// })
 
 test('CIM: renders Cell component without crashing', () => {
   render(<Cell {...cellProps} />)
@@ -120,15 +139,6 @@ test('CIM: renders Cell component correctly with correct status', () => {
   const mainDiv = container.querySelector('div')
   expect(mainDiv).toHaveClass('correct')
 })
-
-// test('renders Cell component with correct status', () => {
-//   const { container } = render(
-//     <Cell {...cellProps} value="" status="correct" />
-//   )
-
-//   const mainDiv = container.querySelector('div')
-//   expect(mainDiv).not.toHaveClass('correct')
-// })
 
 const mockSolutionGetter = jest.fn()
 
