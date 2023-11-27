@@ -3,7 +3,7 @@ import { CompletedRow } from './CompletedRow'
 import { CurrentRow } from './CurrentRow'
 import { EmptyRow } from './EmptyRow'
 
-type Props = {
+export type GridProps = {
   solution: string
   guesses: string[]
   currentGuess: string
@@ -17,7 +17,7 @@ export const Grid = ({
   currentGuess,
   isRevealing,
   currentRowClassName,
-}: Props) => {
+}: GridProps) => {
   const empties =
     guesses.length < MAX_CHALLENGES - 1
       ? Array.from(Array(MAX_CHALLENGES - 1 - guesses.length))
