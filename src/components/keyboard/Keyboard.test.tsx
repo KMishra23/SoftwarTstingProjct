@@ -36,7 +36,6 @@ describe('Keyboard component', () => {
     const keyElement = getByText('A') // Replace 'A' with any key you want to test
     fireEvent.click(keyElement)
     expect(onCharMock).toHaveBeenCalledWith('A')
-    // Add assertions based on your component's behavior
   })
 
   it('CIM: fires onDelete and onEnter events on keyboard events', () => {
