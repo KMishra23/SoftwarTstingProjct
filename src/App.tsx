@@ -10,10 +10,7 @@ import { AlertContainer } from './components/alerts/AlertContainer'
 import { Grid } from './components/grid/Grid'
 import { Keyboard } from './components/keyboard/Keyboard'
 import { DatePickerModal } from './components/modals/DatePickerModal'
-import { InfoModal } from './components/modals/InfoModal'
-import { MigrateStatsModal } from './components/modals/MigrateStatsModal'
 import { SettingsModal } from './components/modals/SettingsModal'
-import { StatsModal } from './components/modals/StatsModal'
 import { Navbar } from './components/navbar/Navbar'
 import {
   DATE_LOCALE,
@@ -41,7 +38,6 @@ import {
   saveGameStateToLocalStorage,
   setStoredIsHighContrastMode,
 } from './lib/localStorage'
-import { addStatsForCompletedGame, loadStats } from './lib/stats'
 import {
   findFirstUnusedReveal,
   getGameDate,
@@ -100,8 +96,6 @@ function App() {
     }
     return loaded.guesses
   })
-
-  const [stats, setStats] = useState(() => loadStats())
 
   const [isHardMode, setIsHardMode] = useState(
     localStorage.getItem('gameMode')
@@ -256,14 +250,12 @@ function App() {
 
       if (winningWord) {
         if (isLatestGame) {
-          setStats(addStatsForCompletedGame(stats, guesses.length))
         }
         return setIsGameWon(true)
       }
 
       if (guesses.length === MAX_CHALLENGES - 1) {
         if (isLatestGame) {
-          setStats(addStatsForCompletedGame(stats, guesses.length + 1))
         }
         setIsGameLost(true)
         showErrorAlert(CORRECT_WORD_MESSAGE(solution), {
@@ -311,34 +303,6 @@ function App() {
             guesses={guesses}
             isRevealing={isRevealing}
           />
-          <InfoModal
-            isOpen={isInfoModalOpen}
-            handleClose={() => setIsInfoModalOpen(false)}
-          />
-          <StatsModal
-            isOpen={isStatsModalOpen}
-            handleClose={() => setIsStatsModalOpen(false)}
-            solution={solution}
-            guesses={guesses}
-            gameStats={stats}
-            isLatestGame={isLatestGame}
-            isGameLost={isGameLost}
-            isGameWon={isGameWon}
-            handleShareToClipboard={() => showSuccessAlert(GAME_COPIED_MESSAGE)}
-            handleShareFailure={() =>
-              showErrorAlert(SHARE_FAILURE_TEXT, {
-                durationMs: LONG_ALERT_TIME_MS,
-              })
-            }
-            handleMigrateStatsButton={() => {
-              setIsStatsModalOpen(false)
-              setIsMigrateStatsModalOpen(true)
-            }}
-            isHardMode={isHardMode}
-            isDarkMode={isDarkMode}
-            isHighContrastMode={isHighContrastMode}
-            numberOfGuessesMade={guesses.length}
-          />
           <DatePickerModal
             isOpen={isDatePickerModalOpen}
             initialDate={solutionGameDate}
@@ -347,10 +311,6 @@ function App() {
               setGameDate(d)
             }}
             handleClose={() => setIsDatePickerModalOpen(false)}
-          />
-          <MigrateStatsModal
-            isOpen={isMigrateStatsModalOpen}
-            handleClose={() => setIsMigrateStatsModalOpen(false)}
           />
           <SettingsModal
             isOpen={isSettingsModalOpen}
