@@ -11,7 +11,6 @@ import { Grid } from './components/grid/Grid'
 import { Keyboard } from './components/keyboard/Keyboard'
 import { DatePickerModal } from './components/modals/DatePickerModal'
 import { SettingsModal } from './components/modals/SettingsModal'
-import { Navbar } from './components/navbar/Navbar'
 import {
   DATE_LOCALE,
   DISCOURAGE_INAPP_BROWSERS,
@@ -269,13 +268,6 @@ function App() {
   return (
     <Div100vh>
       <div className="flex h-full flex-col">
-        <Navbar
-          setIsInfoModalOpen={setIsInfoModalOpen}
-          setIsStatsModalOpen={setIsStatsModalOpen}
-          setIsDatePickerModalOpen={setIsDatePickerModalOpen}
-          setIsSettingsModalOpen={setIsSettingsModalOpen}
-        />
-
         {!isLatestGame && (
           <div className="flex items-center justify-center">
             <ClockIcon className="h-6 w-6 stroke-gray-600 dark:stroke-gray-300" />
